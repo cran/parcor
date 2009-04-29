@@ -1,0 +1,35 @@
+ridge.cv<-
+function(X,y,lambda=NULL,scale=TRUE,k=10,plot.it=FALSE){
+    if (is.null(lambda)==TRUE){
+        ss<-seq(-10,-1,length=1000)
+        ss<-10^ss
+        n<-nrow(X)
+        nn<-n- floor(n/k)
+        lambda<-ss*nn*ncol(X)
+    }
+    cv<-rep(0,length(lambda))
+    n<-nrow(X)
+    all.folds <- split(sample(1:n), rep(1:k,length=n))
+    for (i in seq(k)) {
+        omit <- all.folds[[i]]
+        Xtrain=X[-omit,,drop=FALSE]
+        ytrain=y[-omit]
+        Xtest=X[omit,,drop=FALSE]
+        ytest=y[omit]
+        ll<-lm.ridge(ytrain~Xtrain,scale=scale,lambda=lambda)
+        coef.ll<-coef(ll)
+        res<-matrix(,length(ytest),length(lambda))
+        pred<-t(matrix(coef.ll[,1],nrow=length(lambda),ncol=length(ytest))) + Xtest%*%t(coef.ll[,-1])
+        res<-pred-matrix(ytest,nrow=length(ytest),ncol=length(lambda))
+        cv<-cv+apply(res^2,2,sum)
+        
+    }
+    cv<-cv/n
+    lambda.opt<-lambda[which.min(cv)]
+    if (plot.it==TRUE){
+        plot(lambda,cv,type="l")
+    }
+    rr<-lm.ridge(y~X,scale=scale,lambda=lambda.opt)
+    coefficients<-coef(rr)[-1]
+    return(list(coefficients=coefficients,lambda.opt=lambda.opt))
+}
