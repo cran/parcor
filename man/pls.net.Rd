@@ -30,17 +30,15 @@ pls.net(X, scale = TRUE, k = 10, ncomp = 15,verbose=FALSE)
 }
 \references{
  N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
-  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", preprint
-
-  \url{http://ml.cs.tu-berlin.de/~nkraemer/publications.html}}
+  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, in press}
 
 \author{Nicole Kraemer}
 
-\seealso{}
+
 \examples{
-n<-50
-p<-10
+n<-20
+p<-40
 X<-matrix(rnorm(n*p),ncol=p)
-pc<-pls.net(X,ncomp=5,k=5)
+pc<-pls.net(X,ncomp=10,k=5)
 }
 \keyword{multivariate}

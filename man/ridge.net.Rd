@@ -19,23 +19,19 @@ ridge.net(X, lambda, plot.it = FALSE, scale = TRUE, k = 10,verbose=FALSE)
   \item{plot.it}{Plot the cross-validation error as a function of \code{lambda}? Default is FALSE.}
    \item{verbose}{Print information on conflicting signs etc. Default is \code{verbose=FALSE}}
 }
-\details{
 
-}
 \value{
   \item{pcor}{estimated matrix of partial correlations.}
   \item{lambda.opt}{optimal value of \code{lambda} for each of the \code{ncol} regression models.}
 }
 \references{ N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
-  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", preprint
-
-  \url{http://ml.cs.tu-berlin.de/~nkraemer/publications.html}}
+  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, in press}
 \author{Nicole Kraemer}
 
 \seealso{\code{\link{ridge.cv}}}
 \examples{
-n<-50
-p<-10
+n<-20
+p<-40
 X<-matrix(rnorm(n*p),ncol=p)
 pc<-ridge.net(X,k=5)
 }

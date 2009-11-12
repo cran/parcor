@@ -1,11 +1,22 @@
-adalasso<-function(X, y, k=10,use.Gram=TRUE,both=TRUE){
+adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
     colnames(X)=1:ncol(X)
-    fraction = seq(from = 0, to = 1, length = 1000)
+    n<-length(y)
     cv.adalasso<-NULL
+    globalfit<-mylars(X,y,k=k,use.Gram=use.Gram,normalize=TRUE)
+    coefficients.lasso=globalfit$coefficients
+    cv.lasso<-globalfit$cv.lasso
+    lambda<-globalfit$lambda
+    coefficients.adalasso=NULL
+    if (use.Gram==TRUE){
+        type="covariance"
+    }
+    if (use.Gram==FALSE){
+        type="naive"
+    }
     if (both==TRUE){ # cross-validation for adaptive lasso
-        all.folds <- cv.folds(length(y), k)
-        residmat <- matrix(0, length(fraction), k)
-        l1.ols.cv<-vector(length=k) # length of ols estimate on cv splits
+        all.folds <- split(sample(1:n),rep(1:k,length=n))
+        residmat <- matrix(0, length(lambda), k)
+    
         for (i in seq(k)) {
             omit <- all.folds[[i]]
             Xtrain<-X[-omit,,drop=FALSE]
@@ -28,42 +39,30 @@ adalasso<-function(X, y, k=10,use.Gram=TRUE,both=TRUE){
                     XXtrain <- scale(XXtrain, center=FALSE, scale=weights)
                     XXtest<-scale(XXtest, center=FALSE, scale=weights)
                 }
-                fit<-lars(XXtrain,ytrain,use.Gram=use.Gram,normalize=FALSE)
-                ols<-predict(fit, type="coefficients", mode = "fraction", s = 1)$coefficients
-                l1.ols.cv[i]<-sum(abs(ols))
-                pred<-predict(fit,XXtest,mode="fraction",s=fraction)$fit
+                
+                fit<-glmnet(XXtrain,ytrain,type=type,standardize=FALSE)
+                pred<-predict(fit, newx=XXtest, type = "response", 
+                s = lambda)
                 if (length(omit) == 1){
                     pred <- matrix(pred, nrow = 1)
                 }
                 residmat[, i] <- apply((ytest - pred)^2, 2, mean)
             }
     }
-    l1.cv<-mean(l1.ols.cv) # mean length of ols estimate on cv splits
     cv <- apply(residmat, 1, mean)
-    s.old<-fraction[which.min(cv)]
     cv.adalasso<-min(cv)
-    }
-    fit<-mylars(X,y,k=k,fraction=fraction,use.Gram=use.Gram)
-    coefficients.lasso=fit$coefficients
-    cv.lasso<-fit$cv.lasso
-    coefficients.adalasso=NULL
-    if (both==TRUE){
-        weights <- 1/abs(coefficients.lasso[ abs(coefficients.lasso)>0 ])
-        coefficients.adalasso<-rep(0,ncol(X))
-        names(coefficients.adalasso)<-1:ncol(X)
-        if (length(weights)>0){
-            XX <- X[ , names(weights), drop=FALSE]
+    weights <- 1/abs(coefficients.lasso[ abs(coefficients.lasso)>0 ])
+    coefficients.adalasso<-rep(0,ncol(X))
+    names(coefficients.adalasso)<-1:ncol(X)
+    if (length(weights)>0){
+        XX <- X[ , names(weights), drop=FALSE]
         if ( length(weights)==1 )  XX <- XX/weights        
         else  XX <- scale(XX, center=FALSE, scale=weights)
-        fit<-lars(XX,y,normalize=FALSE,use.Gram=use.Gram)
-        ols<-predict(fit,type="coefficients",mode="fraction",s=1)$coefficients
-        l1.ols<-sum(abs(ols))
-        normalization=l1.cv/l1.ols
-        s.opt=min(1,s.old*normalization)
-        coefficients=predict(fit,type="coefficients",mode="fraction",s=s.opt)$coefficients
-        coefficients.adalasso[names(weights)]<-coefficients/weights
-        }
-    
+    fit<-glmnet(XX,y,type=type,standardize=FALSE)
+    lambda.opt<-lambda[which.min(cv)]
+    coefficients=predict(fit,type="coefficients",s=lambda.opt)[-1]
+    coefficients.adalasso[names(weights)]<-coefficients/weights
+    }
     }
     return(list(coefficients.lasso=coefficients.lasso,coefficients.adalasso=coefficients.adalasso,cv.lasso=cv.lasso,cv.adalasso=cv.adalasso))
 }

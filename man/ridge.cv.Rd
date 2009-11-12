@@ -19,23 +19,21 @@ ridge.cv(X, y, lambda, scale = TRUE, k = 10, plot.it = FALSE)
   \item{k}{Number of splits in  \code{k}-fold cross-validation. Default value is \code{k}=10. }
   \item{plot.it}{Plot the cross-validation error as a function of \code{lambda}? Default is FALSE.}
 }
-\details{
-}
+
 
 \value{
   \item{coefficients}{vector of regression coefficients}
   \item{lambda.opt}{optimal value of \code{lambda}.}
 }
-\references{ }
 \author{Nicole Kraemer}
 
 \seealso{\code{\link{ridge.net}}}
 \examples{
-n<-50 # number of observations
-p<-10 # number of variables
+n<-100 # number of observations
+p<-60 # number of variables
 X<-matrix(rnorm(n*p),ncol=p) 
 y<-rnorm(n)
-ridge.object<-ridge.cv(X,y,k=5)
+ridge.object<-ridge.cv(X,y)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -6,7 +6,7 @@
  This function computes the cross-validation-optimal regression coefficients for lasso.
 }
 \usage{
-mylars(X, y, k = 10,fraction = seq(from = 0, to = 1, length = 1000),use.Gram=TRUE,normalize=TRUE)
+mylars(X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,12 +16,15 @@ mylars(X, y, k = 10,fraction = seq(from = 0, to = 1, length = 1000),use.Gram=TRU
   rows of X}
   \item{k}{the number of splits in  \code{k}-fold cross-validation.  Default is k=10.}
     \item{use.Gram}{When the number of variables is very large, you may not want LARS to precompute the Gram matrix. Default is \code{use.Gram}=TRUE. }
-    \item{fraction}{vector of possible regularization parameters, in the range from 0 to 1.}
     \item{normalize}{Should the columns of \code{X} be scaled? Default is normalize=TRUE.}
 }
+
+
 \details{
- This is a variation of the \code{cv.lars} function of the \code{lars} package. Here, we adjust the regularization parameter \code{fraction} in order to avoid 
- its peaking behavior in the n=p case. See Kraemer (2009) for more details.}
+ We use the glmnet() function from the glmnet package to compute the fit. Note that in Kraemer et. al. (2009), we used the lars() 
+ function from the lars package, which is much slower than glmnet().}
+
+
 \value{
 \item{coefficients}{cross-validation optimal regression coefficients, without intercept.}
 \item{cv.lasso}{cv error for the optimal model.}
@@ -29,14 +32,11 @@ mylars(X, y, k = 10,fraction = seq(from = 0, to = 1, length = 1000),use.Gram=TRU
 \references{R. Tibshirani (1997) "Regression Shrinkage and Selection via the
   Lasso", Journal of the Royal Statistical Society B, 58 (1)
 
-N. Kraemer (2009) "On the Peaking Phenomenon of the Lasso in Model Selection", preprint, 
-\url{http://ml.cs.tu-berlin.de/~nkraemer/publications.html}
+
  
 
 N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
-  Large-Scale Gene Regulatory Networks with Gaussian Graphical Models", preprint
-
-  \url{http://ml.cs.tu-berlin.de/~nkraemer/publications.html}
+  Large-Scale Gene Regulatory Networks with Gaussian Graphical Models", BMC Bioinformatics, in press
 
 }
 \author{Nicole Kraemer}
@@ -44,11 +44,11 @@ N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
 \seealso{\code{\link{Beta2parcor}}, \code{\link{adalasso}}}
 \examples{
 
-n<-50
-p<-10
+n<-20
+p<-50
 X<-matrix(rnorm(n*p),ncol=p)
 y<-rnorm(n)
-dummy<-mylars(X,y,k=5)
+dummy<-mylars(X,y)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

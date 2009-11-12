@@ -40,20 +40,18 @@ adalasso(X, y, k = 10, use.Gram = TRUE,both=TRUE)
 
   
   N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
-  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", preprint
-
-  \url{http://ml.cs.tu-berlin.de/~nkraemer/publications.html}}
+  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, in press}
 
 \author{Nicole Kraemer, Juliane Schaefer}
 
 \seealso{\code{\link{Beta2parcor}}, \code{\link{adalasso.net}}}
 
 \examples{
-n<-50 # number of observations
-p<-10 # number of variables
+n<-100 # number of observations
+p<-60 # number of variables
 X<-matrix(rnorm(n*p),ncol=p) 
 y<-rnorm(n)
-ada.object<-adalasso(X,y,k=5)
+ada.object<-adalasso(X,y,k=10)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

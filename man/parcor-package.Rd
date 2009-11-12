@@ -31,8 +31,6 @@ Maintainer: Nicole Kraemer <nkraemer@cs.tu-berlin.de>
 }
 \references{
 N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
-  Large-Scale Gene Regulatory Networks with Gaussian Graphical Models", preprint
-
-  \url{http://ml.cs.tu-berlin.de/~nkraemer/publications.html}
+  Large-Scale Gene Regulatory Networks with Gaussian Graphical Models", BMC Bioinformatics, in press
 }
 \keyword{ package }

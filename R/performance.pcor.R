@@ -63,7 +63,7 @@ performance.pcor <- function(inferred.pcor, true.pcor=NULL, fdr=TRUE, cutoff.ggm
     xx<-seq(0,1,length=500) # scale of the x and y axis of the ROC curve
     true.binary=(abs(true.pcor)>0) # logical matrix indicating the true partial correlations
     predicted<-sym2vec(prob.results)
-    if (max(predicted)>0){ # there is an error message if all probabilities are zero, weird
+    if (var(predicted)>0){ # there is an error message if all probabilities are zero, weird
     if (plot.it==TRUE){
         plot.roc="ROC"
     }

@@ -1,34 +1,34 @@
 
-mylars<-function (X, y, k = 10, fraction = seq(from = 0, to = 1, length = 1000),use.Gram=TRUE,normalize=TRUE) 
+mylars<-function (X, y, k = 10,use.Gram=TRUE,normalize=TRUE) 
 {
     x<-X
-    all.folds <- cv.folds(length(y), k)
-    residmat <- matrix(0, length(fraction), k)
-    l1.ols.cv<-vector(length=k) # length of ols estimate on cv splits
+    n<-length(y)
+    all.folds <- split(sample(1:n),rep(1:k,length=n))
+    
+    if (use.Gram==TRUE){
+        type="covariance"
+    }
+    if (use.Gram==FALSE){
+        type="naive"
+    }
+    globalfit<-glmnet(x,y,family="gaussian",standardize=normalize,type=type)
+    lambda<-globalfit$lambda
+    residmat <- matrix(0, length(lambda), k)
     for (i in seq(k)) {
         omit <- all.folds[[i]]
-        fit <- lars(x[-omit, ,drop=FALSE], y[-omit],use.Gram=use.Gram,normalize=normalize)
-      ols<-predict(fit, type="coefficients", mode = "fraction", 
-            s = 1)$coefficients
-    l1.ols.cv[i]<-sum(abs(ols))
-        fit <- predict(fit, x[omit, , drop = FALSE], mode = "fraction", 
-            s = fraction)$fit
+        fit <- glmnet(x[-omit, ,drop=FALSE], y[-omit],type=type,standardize=normalize,family="gaussian")
+        fit <- predict(fit, newx=x[omit, , drop = FALSE], type = "response", 
+            s = lambda)
         if (length(omit) == 1) 
             fit <- matrix(fit, nrow = 1)
         residmat[, i] <- apply((y[omit] - fit)^2, 2, mean)
     }
-    l1.cv<-mean(l1.ols.cv) # mean length of ols estimate on cv splits
     cv <- apply(residmat, 1, mean)
     cv.lasso<-min(cv)
     cv.error <- sqrt(apply(residmat, 1, var)/k)
-    s.old<-fraction[which.min(cv)]
-    fit<-lars(x,y,use.Gram=use.Gram,normalize=normalize)
-    ols<-predict(fit,type="coefficients",mode="fraction",s=1)$coefficients
-    l1.ols<-sum(abs(ols))
-    normalization=l1.cv/l1.ols
-    s.opt=min(1,s.old*normalization)
-    coefficients=predict(fit,type="coefficients",mode="fraction",s=s.opt)$coefficients
-    
-    object <- list(coefficients=coefficients,cv.lasso=cv.lasso)
+    lambda.opt<-lambda[which.min(cv)]
+    coefficients=predict(globalfit,type="coefficients",s=lambda.opt)[-1]
+    names(coefficients)=1:ncol(X)
+    object <- list(lambda=lambda,coefficients=coefficients,cv.lasso=cv.lasso)
     invisible(object)
 }

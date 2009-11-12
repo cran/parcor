@@ -39,9 +39,7 @@ The latter can e.g. be used to plot a ROC-curve.
 }
 \author{Juliane Schaefer, Nicole Kraemer}
 
-\examples{
 
-}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{multivariate}
