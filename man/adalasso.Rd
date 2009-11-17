@@ -30,10 +30,14 @@ adalasso(X, y, k = 10, use.Gram = TRUE,both=TRUE)
   penalty term is selected via \code{k}-fold cross-validation). Note that this implies that a lasso solution is computed k*k times!
 }
 \value{
+   \item{intercept.lasso}{intercept for lasso.}
+   \item{intercept.adalasso}{intercept for adaptive lasso.}
   \item{coefficients.adalasso}{regression coefficients for adaptive lasso.}
   \item{coefficients.lasso}{regression coefficients for lasso.}
   \item{cv.lasso}{cv error for the optimal lasso model.}
   \item{cv.adalasso}{cv error for the optimal adaptive lasso model.}
+   \item{lambda.lasso}{optimal lambda value for lasso-}
+   \item{lambda.adalasso}{optimal lambda value for adaptive lasso.}
 }
 \references{H. Zou (2006) "The Adaptive Lasso and its Oracle Property",
   Journal of the American Statistical Association 101 (476):  1418-1429.

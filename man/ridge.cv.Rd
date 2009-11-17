@@ -22,7 +22,8 @@ ridge.cv(X, y, lambda, scale = TRUE, k = 10, plot.it = FALSE)
 
 
 \value{
-  \item{coefficients}{vector of regression coefficients}
+  \item{intercept}{cross-validation optimal intercept}
+  \item{coefficients}{cross-validation optimal regression coefficients}
   \item{lambda.opt}{optimal value of \code{lambda}.}
 }
 \author{Nicole Kraemer}

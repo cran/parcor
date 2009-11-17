@@ -4,9 +4,12 @@ adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
     cv.adalasso<-NULL
     globalfit<-mylars(X,y,k=k,use.Gram=use.Gram,normalize=TRUE)
     coefficients.lasso=globalfit$coefficients
+    intercept.lasso=globalfit$intercept
     cv.lasso<-globalfit$cv.lasso
     lambda<-globalfit$lambda
+    lambda.lasso<-globalfit$lambda.opt
     coefficients.adalasso=NULL
+    lambda.adalasso<-intercept.adalasso<-NULL
     if (use.Gram==TRUE){
         type="covariance"
     }
@@ -59,10 +62,11 @@ adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
         if ( length(weights)==1 )  XX <- XX/weights        
         else  XX <- scale(XX, center=FALSE, scale=weights)
     fit<-glmnet(XX,y,type=type,standardize=FALSE)
-    lambda.opt<-lambda[which.min(cv)]
-    coefficients=predict(fit,type="coefficients",s=lambda.opt)[-1]
-    coefficients.adalasso[names(weights)]<-coefficients/weights
+    lambda.adalasso<-lambda[which.min(cv)]
+    coefficients=predict(fit,type="coefficients",s=lambda.adalasso)
+    intercept.adalasso<-coefficients[1]
+    coefficients.adalasso[names(weights)]<-coefficients[-1]/weights
     }
     }
-    return(list(coefficients.lasso=coefficients.lasso,coefficients.adalasso=coefficients.adalasso,cv.lasso=cv.lasso,cv.adalasso=cv.adalasso))
+    return(list(cv.lasso=cv.lasso,lambda.lasso=lambda.lasso,cv.adalasso=cv.adalasso,lambda.adalasso=lambda.adalasso,intercept.lasso=intercept.lasso, intercept.adalasso=intercept.adalasso, coefficients.lasso=coefficients.lasso,coefficients.adalasso=coefficients.adalasso))
 }

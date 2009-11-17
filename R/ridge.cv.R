@@ -30,6 +30,8 @@ function(X,y,lambda=NULL,scale=TRUE,k=10,plot.it=FALSE){
         plot(lambda,cv,type="l")
     }
     rr<-lm.ridge(y~X,scale=scale,lambda=lambda.opt)
-    coefficients<-coef(rr)[-1]
-    return(list(coefficients=coefficients,lambda.opt=lambda.opt))
+    coefficients<-coef(rr)
+    intercept<-coefficients[1]
+    coefficients<-coefficients[-1]
+    return(list(intercept=intercept,coefficients=coefficients,lambda.opt=lambda.opt))
 }

@@ -27,8 +27,10 @@ mylars<-function (X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
     cv.lasso<-min(cv)
     cv.error <- sqrt(apply(residmat, 1, var)/k)
     lambda.opt<-lambda[which.min(cv)]
-    coefficients=predict(globalfit,type="coefficients",s=lambda.opt)[-1]
+    coefficients=predict(globalfit,type="coefficients",s=lambda.opt)
+    intercept=coefficients[1]
+    coefficients=coefficients[-1]
     names(coefficients)=1:ncol(X)
-    object <- list(lambda=lambda,coefficients=coefficients,cv.lasso=cv.lasso)
+    object <- list(lambda=lambda,cv=cv,lambda.opt=lambda.opt,cv.lasso=cv.lasso,intercept=intercept,coefficients=coefficients)
     invisible(object)
 }

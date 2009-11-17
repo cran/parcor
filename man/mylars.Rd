@@ -26,8 +26,12 @@ mylars(X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
 
 
 \value{
-\item{coefficients}{cross-validation optimal regression coefficients, without intercept.}
+\item{lambda}{vector of paramter values from which the optimal parameter is selected}
+\item{cv}{cross-validated error for all \code{lambda} values}
+\item{lambda.opt}{cross-validation optimal parameter}
 \item{cv.lasso}{cv error for the optimal model.}
+\item{intercept}{cross-validation optimal intercept}
+\item{coefficients}{cross-validation optimal regression coefficients, without intercept}
 }
 \references{R. Tibshirani (1997) "Regression Shrinkage and Selection via the
   Lasso", Journal of the Royal Statistical Society B, 58 (1)
