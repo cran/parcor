@@ -37,6 +37,14 @@ The latter can e.g. be used to plot a ROC-curve.
   \item{TPR}{vector of true positive rates corresponding to varying cut-offs (if true.pcor is provided and \code{fdr=TRUE})}
   \item{FPR}{vector of false positive rates corresponding to varying cut-offs (if true.pcor is provided and \code{fdr=TRUE})}
 }
+
+\references{
+  N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
+  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, 10:384
+
+\url{http://www.biomedcentral.com/1471-2105/10/384/}
+}
+
 \author{Juliane Schaefer, Nicole Kraemer}
 
 

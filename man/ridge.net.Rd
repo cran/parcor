@@ -25,7 +25,9 @@ ridge.net(X, lambda, plot.it = FALSE, scale = TRUE, k = 10,verbose=FALSE)
   \item{lambda.opt}{optimal value of \code{lambda} for each of the \code{ncol} regression models.}
 }
 \references{ N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
-  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, in press}
+  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, 10:384
+
+\url{http://www.biomedcentral.com/1471-2105/10/384/}}
 \author{Nicole Kraemer}
 
 \seealso{\code{\link{ridge.cv}}}

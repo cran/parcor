@@ -44,7 +44,9 @@ adalasso(X, y, k = 10, use.Gram = TRUE,both=TRUE)
 
   
   N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
-  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, in press}
+  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, 10:384
+
+\url{http://www.biomedcentral.com/1471-2105/10/384/}}
 
 \author{Nicole Kraemer, Juliane Schaefer}
 

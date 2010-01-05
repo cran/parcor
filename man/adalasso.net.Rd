@@ -38,14 +38,17 @@ adalasso.net(X, k = 10,use.Gram=FALSE,both=TRUE,verbose=FALSE)
 
   
   N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of
-  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, in press}
+  Large-Scale Gene Regulatory Networks using Gaussian Graphical Models", BMC Bioinformatics, 10:384
+
+\url{http://www.biomedcentral.com/1471-2105/10/384/}
+}
 
 \author{Nicole Kraemer}
 
 \seealso{\code{\link{Beta2parcor}}, \code{\link{adalasso}}}
 \examples{
 n<-20
-p<-40
+p<-10
 X<-matrix(rnorm(n*p),ncol=p)
 pc<-adalasso.net(X,k=5)
 
