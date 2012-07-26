@@ -11,12 +11,12 @@ mylars<-function (X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
     if (use.Gram==FALSE){
         type="naive"
     }
-    globalfit<-glmnet(x,y,family="gaussian",standardize=normalize,type=type)
+    globalfit<-glmnet(x,y,family="gaussian",standardize=normalize,type.gaussian=type)
     lambda<-globalfit$lambda
     residmat <- matrix(0, length(lambda), k)
     for (i in seq(k)) {
         omit <- all.folds[[i]]
-        fit <- glmnet(x[-omit, ,drop=FALSE], y[-omit],type=type,standardize=normalize,family="gaussian")
+        fit <- glmnet(x[-omit, ,drop=FALSE], y[-omit],type.gaussian=type,standardize=normalize,family="gaussian")
         fit <- predict(fit, newx=x[omit, , drop = FALSE], type = "response", 
             s = lambda)
         if (length(omit) == 1) 

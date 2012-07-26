@@ -1,0 +1,3 @@
+
+## and exported functions
+export(adalasso.net,adalasso,Beta2parcor,mylars,performance.pcor,pls.net,ridge.cv,ridge.net,sym2vec)

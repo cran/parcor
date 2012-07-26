@@ -19,8 +19,8 @@ model selection for lasso, adaptive lasso and Ridge regression based on cross-va
 \tabular{ll}{
 Package: \tab parcor\cr
 Type: \tab Package\cr
-Version: \tab 0.2-1\cr
-Date: \tab 2009-11-17\cr
+Version: \tab 0.2-2\cr
+Date: \tab 2012-07-26\cr
 License: \tab GPL2 or newer\cr
 LazyLoad: \tab yes\cr
 }
@@ -28,7 +28,7 @@ LazyLoad: \tab yes\cr
 }
 \author{Nicole Kraemer, Juliane Schaefer
 
-Maintainer: Nicole Kraemer <nkraemer@cs.tu-berlin.de>
+Maintainer: Nicole Kraemer <kraemer@ma.tum.de>
 }
 \references{
 N. Kraemer, J. Schaefer, A.-L. Boulesteix (2009) "Regularized Estimation of

@@ -43,7 +43,7 @@ adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
                     XXtest<-scale(XXtest, center=FALSE, scale=weights)
                 }
                 
-                fit<-glmnet(XXtrain,ytrain,type=type,standardize=FALSE)
+                fit<-glmnet(XXtrain,ytrain,type.gaussian=type,standardize=FALSE)
                 pred<-predict(fit, newx=XXtest, type = "response", 
                 s = lambda)
                 if (length(omit) == 1){
@@ -61,7 +61,7 @@ adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
         XX <- X[ , names(weights), drop=FALSE]
         if ( length(weights)==1 )  XX <- XX/weights        
         else  XX <- scale(XX, center=FALSE, scale=weights)
-    fit<-glmnet(XX,y,type=type,standardize=FALSE)
+    fit<-glmnet(XX,y,type.gaussian=type,standardize=FALSE)
     lambda.adalasso<-lambda[which.min(cv)]
     coefficients=predict(fit,type="coefficients",s=lambda.adalasso)
     intercept.adalasso<-coefficients[1]
