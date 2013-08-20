@@ -6,7 +6,8 @@
   This function computed various performance measures of the estimated matrix of partial correlations.
 }
 \usage{
-performance.pcor(inferred.pcor, true.pcor=NULL, fdr=TRUE, cutoff.ggm=0.8,verbose=FALSE,plot.it=FALSE)
+performance.pcor(inferred.pcor, true.pcor=NULL,
+			fdr=TRUE, cutoff.ggm=0.8,verbose=FALSE,plot.it=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

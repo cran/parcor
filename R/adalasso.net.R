@@ -12,11 +12,16 @@ function(X, k=10,use.Gram=FALSE,both=TRUE,verbose=FALSE)
   
   colnames(B.lasso) <- colnames(B.adalasso)<-1:p
   pcor.adalasso<-NULL
+  if (verbose==TRUE){
   cat(paste("Performing local (adaptive) lasso regressions\n"))
   cat(paste("Vertex no "))
+}
   for (i in 1:p) ## visit all nodes
-  { 
-    if ((i/10)==floor(i/10)) {cat(paste(i,"..."))}
+  {
+    if (verbose==TRUE){
+    if ((i/10)==floor(i/10)) {
+      cat(paste(i,"..."))}
+  }
     noti <- (1:p)[-i]
     yi <- X[ ,i]       ## response
     Xi <- X[ ,noti]    ## predicted by all other nodes with i missing
