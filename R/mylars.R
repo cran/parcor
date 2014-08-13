@@ -1,5 +1,5 @@
 
-mylars<-function (X, y, k = 10,use.Gram=TRUE,normalize=TRUE) 
+mylars<-function (X, y, k = 10,use.Gram=TRUE,normalize=TRUE,intercept=TRUE) 
 {
     x<-X
     n<-length(y)
@@ -11,12 +11,12 @@ mylars<-function (X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
     if (use.Gram==FALSE){
         type="naive"
     }
-    globalfit<-glmnet(x,y,family="gaussian",standardize=normalize,type.gaussian=type)
+    globalfit<-glmnet(x,y,family="gaussian",standardize=normalize,type.gaussian=type,intercept=intercept)
     lambda<-globalfit$lambda
     residmat <- matrix(0, length(lambda), k)
     for (i in seq(k)) {
         omit <- all.folds[[i]]
-        fit <- glmnet(x[-omit, ,drop=FALSE], y[-omit],type.gaussian=type,standardize=normalize,family="gaussian")
+        fit <- glmnet(x[-omit, ,drop=FALSE], y[-omit],type.gaussian=type,standardize=normalize,family="gaussian",intercept=intercept)
         fit <- predict(fit, newx=x[omit, , drop = FALSE], type = "response", 
             s = lambda)
         if (length(omit) == 1) 
@@ -28,9 +28,9 @@ mylars<-function (X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
     cv.error <- sqrt(apply(residmat, 1, var)/k)
     lambda.opt<-lambda[which.min(cv)]
     coefficients=predict(globalfit,type="coefficients",s=lambda.opt)
-    intercept=coefficients[1]
+    inter=coefficients[1]
     coefficients=coefficients[-1]
     names(coefficients)=1:ncol(X)
-    object <- list(lambda=lambda,cv=cv,lambda.opt=lambda.opt,cv.lasso=cv.lasso,intercept=intercept,coefficients=coefficients)
+    object <- list(lambda=lambda,cv=cv,lambda.opt=lambda.opt,cv.lasso=cv.lasso,intercept=inter,coefficients=coefficients)
     invisible(object)
 }

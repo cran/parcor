@@ -1,8 +1,8 @@
-adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
+adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE,intercept=TRUE){
     colnames(X)=1:ncol(X)
     n<-length(y)
     cv.adalasso<-NULL
-    globalfit<-mylars(X,y,k=k,use.Gram=use.Gram,normalize=TRUE)
+    globalfit<-mylars(X,y,k=k,use.Gram=use.Gram,normalize=TRUE,intercept=intercept)
     coefficients.lasso=globalfit$coefficients
     intercept.lasso=globalfit$intercept
     cv.lasso<-globalfit$cv.lasso
@@ -27,7 +27,7 @@ adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
             ytrain<-y[-omit]
             Xtest<-X[omit,,drop=FALSE]
             ytest<-y[omit]
-            my.lars<-mylars(Xtrain,ytrain,k=k,normalize=TRUE,use.Gram=use.Gram)
+            my.lars<-mylars(Xtrain,ytrain,k=k,normalize=TRUE,use.Gram=use.Gram,intercept=intercept)
             coef.lasso<-my.lars$coefficients
             weights <- 1/abs(coef.lasso[ abs(coef.lasso)>0 ])
             #cat(paste("-- non-zero weights ",length(weights),"\n"))
@@ -43,7 +43,7 @@ adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
                 XXtrain <- scale(XXtrain, center=FALSE, scale=weights)
                 XXtest<-scale(XXtest, center=FALSE, scale=weights)
                 #cat(paste("ncol of XXtrain: ",ncol(XXtrain),"\n"))
-                fit<-glmnet(XXtrain,ytrain,type.gaussian=type,standardize=FALSE)
+                fit<-glmnet(XXtrain,ytrain,type.gaussian=type,standardize=FALSE,intercept=intercept)
                 pred<-predict(fit, newx=XXtest, type = "response",s = lambda)
                 if (length(omit) == 1){
                     pred <- matrix(pred, nrow = 1)
@@ -66,7 +66,7 @@ adalasso<-function(X, y,k=10,use.Gram=TRUE,both=TRUE){
             lambda.adalasso=0
         }
         else{
-    fit<-glmnet(XX,y,type.gaussian=type,standardize=FALSE)
+    fit<-glmnet(XX,y,type.gaussian=type,standardize=FALSE,intercept=intercept)
     lambda.adalasso<-lambda[which.min(cv)]
     coefficients=predict(fit,type="coefficients",s=lambda.adalasso)
     intercept.adalasso<-coefficients[1]

@@ -6,7 +6,7 @@
  This function computes the cross-validation-optimal regression coefficients for lasso.
 }
 \usage{
-mylars(X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
+mylars(X, y, k = 10,use.Gram=TRUE,normalize=TRUE,intercept=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +17,7 @@ mylars(X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
   \item{k}{the number of splits in  \code{k}-fold cross-validation.  Default is k=10.}
     \item{use.Gram}{When the number of variables is very large, you may not want LARS to precompute the Gram matrix. Default is \code{use.Gram}=TRUE. }
     \item{normalize}{Should the columns of \code{X} be scaled? Default is normalize=TRUE.}
+     \item{intercept}{Should an intercept be included? Default is \code{intercept=TRUE}.}
 }
 
 
@@ -30,7 +31,7 @@ mylars(X, y, k = 10,use.Gram=TRUE,normalize=TRUE)
 \item{cv}{cross-validated error for all \code{lambda} values}
 \item{lambda.opt}{cross-validation optimal parameter}
 \item{cv.lasso}{cv error for the optimal model.}
-\item{intercept}{cross-validation optimal intercept}
+\item{intercept}{cross-validation optimal intercept. If \code{intercept=FALSE} was specified, the intercept is set to 0.}
 \item{coefficients}{cross-validation optimal regression coefficients, without intercept}
 }
 \references{R. Tibshirani (1997) "Regression Shrinkage and Selection via the

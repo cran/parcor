@@ -1,7 +1,7 @@
 
 
 `adalasso.net` <-
-function(X, k=10,use.Gram=FALSE,both=TRUE,verbose=FALSE)
+function(X, k=10,use.Gram=FALSE,both=TRUE,verbose=FALSE,intercept=TRUE)
 {
   p <- ncol(X)
   
@@ -27,7 +27,7 @@ function(X, k=10,use.Gram=FALSE,both=TRUE,verbose=FALSE)
     Xi <- X[ ,noti]    ## predicted by all other nodes with i missing
     
     ## perform adaptive lasso regression & extract regression coefficients  
-    dummy <- adalasso(Xi, yi, k=k,use.Gram=use.Gram,both=both)
+    dummy <- adalasso(Xi, yi, k=k,use.Gram=use.Gram,both=both,intercept=intercept)
     coefi.lasso<-dummy$coefficients.lasso
      B.lasso[i,-i] <- coefi.lasso
     if (both==TRUE){

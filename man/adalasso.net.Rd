@@ -8,7 +8,7 @@
 
 }
 \usage{
-adalasso.net(X, k = 10,use.Gram=FALSE,both=TRUE,verbose=FALSE)
+adalasso.net(X, k = 10,use.Gram=FALSE,both=TRUE,verbose=FALSE,intercept=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,6 +20,7 @@ adalasso.net(X, k = 10,use.Gram=FALSE,both=TRUE,verbose=FALSE)
     \item{use.Gram}{When the number of variables is very large, you may not want LARS to precompute the Gram matrix. Default is \code{use.Gram}=FALSE. }
     \item{both}{Logical. If both=FALSE, only the lasso solution is computed. Default is both=TRUE.}
     \item{verbose}{Print information on conflicting signs etc. Default is \code{verbose=FALSE}}
+    \item{intercept}{Should an intercept be included in the regression models? Default is \code{intercept=TRUE}.}
 }
 \details{
  For each of the columns of \code{X}, a regression model based on

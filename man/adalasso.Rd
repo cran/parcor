@@ -8,7 +8,7 @@
 
 }
 \usage{
-adalasso(X, y, k = 10, use.Gram = TRUE,both=TRUE)
+adalasso(X, y, k = 10, use.Gram = TRUE,both=TRUE,intercept=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,6 +22,7 @@ adalasso(X, y, k = 10, use.Gram = TRUE,both=TRUE)
 
   \item{use.Gram}{When the number of variables is very large, you may not want LARS to precompute the Gram matrix. Default is \code{use.Gram}=TRUE. }
     \item{both}{Logical. If both=FALSE, only the lasso coefficients are computed. Default is both=TRUE.} 
+     \item{intercept}{Should an intercept be included? Default is \code{intercept=TRUE}.}
 }
 
 \details{
@@ -30,8 +31,8 @@ adalasso(X, y, k = 10, use.Gram = TRUE,both=TRUE)
   penalty term is selected via \code{k}-fold cross-validation). Note that this implies that a lasso solution is computed k*k times!
 }
 \value{
-   \item{intercept.lasso}{intercept for lasso.}
-   \item{intercept.adalasso}{intercept for adaptive lasso.}
+   \item{intercept.lasso}{intercept for lasso. If \code{intercept=FALSE} was specified, the intercept is set to 0.}
+   \item{intercept.adalasso}{intercept for adaptive lasso. If \code{intercept=FALSE} was specified, the intercept is set to 0.}
   \item{coefficients.adalasso}{regression coefficients for adaptive lasso.}
   \item{coefficients.lasso}{regression coefficients for lasso.}
   \item{cv.lasso}{cv error for the optimal lasso model.}
