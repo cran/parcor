@@ -1,4 +1,4 @@
-4613699019d6dbfddda32bdeb3f1f899 *DESCRIPTION
+e0fb24b943bb635e02f049c30957a7dc *DESCRIPTION
 fa7486afb03502fb889335c1cd38faf2 *NAMESPACE
 108d8df40bba6d7b1d83cc01a0983335 *R/Beta2parcor.R
 ee8d1d89c4a707f0de84e5804b550601 *R/adalasso.R
@@ -11,13 +11,13 @@ e682cc9393ef6e8eace9a721634aa76b *R/pls.net.R
 5b056c545f3b8040874f8cf4472f3c97 *R/ridge.net.R
 74528bcb54ecc8b75cde221ceea7bc5b *R/sym2vec.R
 0a84532e401b7fe55461ac9862c46205 *inst/CITATION
-6458d90e8338370d653a93ea3163acf9 *inst/ChangeLog
+1418fc96221069036ba30f90a33cb634 *inst/ChangeLog
 e11a5cd27a8de66879ee66e26c6208dd *man/Beta2parcor.Rd
 17f2ac97851c9d9754cbf04307d604c7 *man/adalasso.Rd
 bf423a118b63518db6ea858560a0d2c7 *man/adalasso.net.Rd
 20cb5f3f337bbb353cfc6b2d3ed12aed *man/lm.ridge.univariate.Rd
 a119ef461b80ba8639f81e9a99ba2ead *man/mylars.Rd
-1732a8cf474ef5f65593da10ac39b8f3 *man/parcor-package.Rd
+0b6b11d7bbe657c47b54f6fff9e883b6 *man/parcor-package.Rd
 66a6864ec21d9cb7f3ec33782bd42550 *man/performance.pcor.Rd
 12593e90d6486dd6bf3212bfc5214349 *man/pls.net.Rd
 e789dcfa5102e4c6b5491e138249d607 *man/ridge.cv.Rd
